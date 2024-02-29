@@ -3,7 +3,19 @@
 name: Falcor Compiler Perf-Test
 
 on:
+  push:
+    branches: [ local-runner ]
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
