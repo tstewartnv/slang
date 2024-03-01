@@ -31,6 +31,7 @@ jobs:
         fetch-depth: '0'
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1
+
     - name: build
       run: |
         .\premake.bat vs2019 --arch=${{matrix.platform}} --deps=true --no-progress=true --enable-cuda=true
@@ -38,6 +39,11 @@ jobs:
         .\make-slang-tag-version.bat
 
         MSBuild.exe slang.sln -v:m -m -property:Configuration=${{matrix.configuration}} -property:Platform=${{matrix.platform}} -property:WindowsTargetPlatformVersion=10.0.19041.0 -maxcpucount:12
+
+    - name: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
 
     - uses: robinraju/release-downloader@v1.9
       id: download
@@ -74,3 +80,6 @@ jobs:
         Expand-Archive $filename -DestinationPath .\falcor-perf-test
         $env:PATH += ";.\bin\windows-${{matrix.testPlatform}}\${{matrix.configuration}}";
         .\falcor-perf-test\bin\Release\falcor_perftest.exe > .\falcor-perf-test\falcor-perf-test.results
+
+    - name: parse results
+      run: python -c "import sys; print(sys.version)"
