@@ -5,7 +5,7 @@ name: Falcor Compiler Perf-Test
 on:
   push:
     branches: [ local-runner ]
-
+    
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -33,7 +33,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1
     - name: build
       run: |
-        .\premake.bat vs2019 --arch=${{matrix.platform}} --deps=true --no-progress=true --enable-cuda=true
+        .\premake.bat vs2019 --arch=${{matrix.platform}} --deps=true --no-progress=true --enable-cuda=false
 
         .\make-slang-tag-version.bat
 
