@@ -81,5 +81,5 @@ jobs:
         $env:PATH += ";.\bin\windows-${{matrix.testPlatform}}\${{matrix.configuration}}";
         .\falcor-perf-test\bin\Release\falcor_perftest.exe > .\falcor-perf-test\falcor-perf-test.results
 
-    - name: parse results
-      run: python -c "import sys; print(sys.version)"
+    - name: extract results
+      run: python .\temp\falcor-perf-test-extract-results.py .\falcor-perf-test.results
