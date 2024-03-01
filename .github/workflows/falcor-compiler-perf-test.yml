@@ -82,4 +82,4 @@ jobs:
         .\falcor-perf-test\bin\Release\falcor_perftest.exe > .\falcor-perf-test\falcor-perf-test.results
 
     - name: extract results
-      run: python .\temp\falcor-perf-test-extract-results.py .\falcor-perf-test.results
+      run: python .\temp\falcor-perf-test-extract-results.py .\falcor-perf-test\falcor-perf-test.results
